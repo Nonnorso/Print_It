@@ -1,3 +1,4 @@
+//******* Mon tableau d'images et de texte correspondants ********/
 const slides = [
 	{
 		"image":"slide1.jpg",
@@ -17,6 +18,7 @@ const slides = [
 	}
 ]
 
+
 //******* creer mes constantes *******//
 const carouselContainer = document.getElementById('banner');
 
@@ -26,6 +28,8 @@ const tagLine = carouselContainer.querySelector('p');
 
 const dotsContainer = carouselContainer.querySelector('.dots');
 
+
+//******* creation de mes elements dots *******//
 slides.forEach((slide, key) => {
 	let dot = document.createElement('span')
 	dot.classList.add('dot')
@@ -36,49 +40,80 @@ slides.forEach((slide, key) => {
 const dots = dotsContainer.querySelectorAll('.dot');
 
 
-//******* appeller le commencement de mon caroussel *******//
-let currentSlide = 0;													// definit l'index de depart de la fonction appellée pour le caroussel
+//******* definition de l'index de depart de mon caroussel *******//
+let currentSlide = 0;												
 
 
 //******* creation des fonctions pour le deroulement du caroussel *******//
-function showSlide(index) {												//affiche mon slide
-	carouselImage.src = './assets/images/slideshow/' + slides[index].image;//affiche l'image selectionnée par l'inex appelé avec la fonction display 'block'
-	  
+//affiche mon slide et configure mon changement d'image, texte et dot en fonction du defilement
+//indique un comportement automatique attribuant ou supprimant la classe "dot_selected" selon que l'index auquel est
+//rattaché le dot est affiché ou non.
+
+function showSlide(index) {														
+	
+	carouselImage.src = './assets/images/slideshow/' + slides[index].image;
 				
-	tagLine.innerHTML = slides[index].tagLine;							//affiche l'objet "p" correspondant à l'index et lui donne la propriété innerHTML pour acceder au contenu du "p" selectionné par l'index
+	tagLine.innerHTML = slides[index].tagLine;							
   
 	dots.forEach(dot => {
-	  dot.classList.remove('dot_selected');								//Parcours tous les elements dots et supprime la classe dot_selected
+	  dot.classList.remove('dot_selected');								
 	});
-	dots[index].classList.add('dot_selected');							// affiche la classe 'dot-selected' au dot correspondant à l'image en cours d'affichage
+
+	dots[index].classList.add('dot_selected');							
   }
-  
-function nextSlide() {													//permet de passer à l'image "suivante" de mon caroussel
-	currentSlide = (currentSlide + 1) % slides.length;  				//calcul permettant de determiner le nombre d'images dans le slide et de revenir à la premiere image lorsque la derniere est atteinte
-	showSlide(currentSlide);											//appelle l'image suivant à s'afficher
-  }
-  
-function previousSlide() {												//fonctionne de la meme maniere que nextSlide avec un defilement inversé en affichant les images precedentes et non suivantes
-	currentSlide = (currentSlide - 1 + slides.length) % slides.length;
+
+//permet de passer à l'image "suivante" de mon caroussel, integre un calcul avec modulo permettant de continuer la boucle infinie
+
+function nextSlide() {	
+
+	currentSlide = (currentSlide + 1) % slides.length;
+
 	showSlide(currentSlide);
+
+  }
+
+//permet d'effectuer un defilement de la meme maniere que la fonction precedente mais dans le sens opposé
+
+function previousSlide() {	
+
+	currentSlide = (currentSlide - 1 + slides.length) % slides.length;
+
+	showSlide(currentSlide);
+
   }
 
 
 //******* comportement des fleches *******//
-const arrowLeft = carouselContainer.querySelector('.arrow_left');		//Créé une action qui déclenchera le défilement vers l'image précédente lors du clik sur la fleche gauche
+//Créé une action qui déclenchera le défilement vers l'image précédente lors du clik sur la fleche gauche
+
+const arrowLeft = carouselContainer.querySelector('.arrow_left');
+
 arrowLeft.addEventListener('click', previousSlide);
 
-const arrowRight = carouselContainer.querySelector('.arrow_right');		//Créé une action qui déclenchera le défilement vers l'image suivante lors du clik sur la fleche droite
+//Créé une action qui déclenchera le défilement vers l'image suivante lors du clik sur la fleche droite
+
+const arrowRight = carouselContainer.querySelector('.arrow_right');
+
 arrowRight.addEventListener('click', nextSlide);
 
 
 //******* comportement des dots *******//
-dots.forEach((dot, index) => {											//appele chaque dot selon son index
-	dot.addEventListener('click', () => {								//créé un evenement au clik sur les dot, une fonction qui fera defiler les images selon la selection det dot et leur index correspondant dans le tableau du slide
-	  currentSlide = index;												//determine quelle image doit etre affichée en fonction de l'index correspondant
-	  showSlide(currentSlide);											// affiche l'image selectionné par le click sur le dot 
+//appele chaque dot selon son index, ajoute une fonction permettant d'effectuant le defilement du caroussel au click des dots
+//selon l'image à laquelle il est attaché
+
+dots.forEach((dot, index) => {	
+
+	dot.addEventListener('click', () => {
+
+	  currentSlide = index;	
+
+	  showSlide(currentSlide);
+
 	});
+
   }); 
 
-showSlide(currentSlide);												//appel de la fonction qui permet le racoussel, et lui indique d'afficher l'image actuelle definie par l'index
+//appel de la fonction qui permet le racoussel, et lui indique d'afficher l'image actuelle definie par l'index
+
+showSlide(currentSlide);												
 
