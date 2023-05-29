@@ -84,6 +84,7 @@ function previousSlide() {
 
 
 //******* comportement des fleches *******//
+//	Ajout d'event listeners
 //Créé une action qui déclenchera le défilement vers l'image précédente lors du clik sur la fleche gauche
 
 const arrowLeft = carouselContainer.querySelector('.arrow_left');
@@ -113,7 +114,7 @@ dots.forEach((dot, index) => {
 
   }); 
 
-//appel de la fonction qui permet le racoussel, et lui indique d'afficher l'image actuelle definie par l'index
+//appel de la fonction qui permet le caroussel, et lui indique d'afficher l'image actuelle definie par l'index
 
 showSlide(currentSlide);												
 
