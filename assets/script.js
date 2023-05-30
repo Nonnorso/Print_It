@@ -91,9 +91,13 @@ const arrowLeft = carouselContainer.querySelector('.arrow_left');
 
 arrowLeft.addEventListener('click', previousSlide);
 
+console.log(arrowLeft);
+
 //Créé une action qui déclenchera le défilement vers l'image suivante lors du clik sur la fleche droite
 
 const arrowRight = carouselContainer.querySelector('.arrow_right');
+
+console.log(arrowRight);
 
 arrowRight.addEventListener('click', nextSlide);
 
